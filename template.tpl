@@ -1,4 +1,4 @@
-﻿___TERMS_OF_SERVICE___
+___TERMS_OF_SERVICE___
 
 By creating or modifying this file you agree to Google Tag Manager's Community
 Template Gallery Developer Terms of Service available at
@@ -14,7 +14,10 @@ ___INFO___
   "version": 1,
   "securityGroups": [],
   "displayName": "Script injector",
-  "categories": ["UTILITY", "TAG_MANAGEMENT"],
+  "categories": [
+    "UTILITY",
+    "TAG_MANAGEMENT"
+  ],
   "brand": {
     "id": "brand_dummy",
     "displayName": "",
@@ -104,16 +107,22 @@ const queryPermission = require('queryPermission');
 const scriptSourceURL = data.scriptSourceURL;
 const cacheToken = data.cacheTokenScript;
 const scriptQueryParams = data.scriptQueryParams;
+
 var fullScriptSourceURL;
 
 function appendQueryParamsToURL(baseScriptSourceURL, queryParams) {
+    var queryString = queryParams
+        .filter(function(item) {
+            return item.queryParamValue !== null && item.queryParamValue !== undefined && item.queryParamValue !== "";
+        })
+        .map(function(item) {
+            return item.queryParamName + "=" + item.queryParamValue;
+        })
+        .join("&");
 
-    var queryString = queryParams.map(function(item) {
-        return item.queryParamName + "=" + item.queryParamValue;
-    }).join('&');
-
-
-    return baseScriptSourceURL.indexOf('?') !== -1 ? baseScriptSourceURL + "&" + queryString : baseScriptSourceURL + "?" + queryString;
+    return queryString ?
+        (baseScriptSourceURL.indexOf('?') !== -1 ? baseScriptSourceURL + "&" + queryString : baseScriptSourceURL + "?" + queryString) :
+        baseScriptSourceURL;
 }
 
 if (scriptQueryParams) {
@@ -169,3 +178,5 @@ scenarios: []
 ___NOTES___
 
 Created on 16/01/2025, 02:29:21
+
+
