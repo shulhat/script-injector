@@ -1,5 +1,5 @@
 homepage: "https://medium.com/@w.anatolii"
 documentation: "https://medium.com/@w.anatolii/how-to-inject-script-for-best-performance-in-gtm-5896078f3169"
 versions:
-  - sha: fd5d390d32bb1fc123f95cad026f930a6e1121e3
+  - sha: 88c7e899100f1ebf8af186256170db84d7de5493
     changeNotes: Initial release.
