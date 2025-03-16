@@ -35,11 +35,11 @@ ___TEMPLATE_PARAMETERS___
 [
   {
     "type": "TEXT",
-    "name": "scriptSourceURL",
+    "name": "scriptSourceUserInput",
     "displayName": "The script source URL",
     "simpleValueType": true,
     "alwaysInSummary": true,
-    "valueHint": "https://www.example.com/"
+    "valueHint": "https://www.example.com"
   },
   {
     "type": "PARAM_TABLE",
@@ -103,8 +103,12 @@ ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
 const injectScript = require('injectScript');
 const queryPermission = require('queryPermission');
+const encodeUriComponent = require('encodeUriComponent');
+const encodeUri = require('encodeUri');
+const parseUrl = require('parseUrl');
 
-const scriptSourceURL = data.scriptSourceURL;
+const scriptSourceUserInput = parseUrl(data.scriptSourceUserInput);
+const scriptSourceURL = scriptSourceUserInput.origin + encodeUri(scriptSourceUserInput.pathname);
 const cacheToken = data.cacheTokenScript;
 const scriptQueryParams = data.scriptQueryParams;
 
@@ -116,7 +120,7 @@ function appendQueryParamsToURL(baseScriptSourceURL, queryParams) {
             return item.queryParamValue !== null && item.queryParamValue !== undefined && item.queryParamValue !== "";
         })
         .map(function(item) {
-            return item.queryParamName + "=" + item.queryParamValue;
+            return encodeUriComponent(item.queryParamName) + "=" + encodeUriComponent(item.queryParamValue);
         })
         .join("&");
 
@@ -155,7 +159,7 @@ ___WEB_PERMISSIONS___
             "listItem": [
               {
                 "type": 1,
-                "string": "https://www.example.com/"
+                "string": "https://www.example.com/*"
               }
             ]
           }
