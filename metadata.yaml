@@ -2,10 +2,12 @@ homepage: "https://medium.com/@w.anatolii"
 documentation: "https://medium.com/@w.anatolii/how-to-inject-script-for-best-performance-in-gtm-5896078f3169"
 versions:
   # Latest version
+  - sha: b983e2fa32d501c495afb28b46497a5958627388
+    changeNotes: Added encoding to the URL of the script source.
+  # Older versions
   - sha: 5b61ec57f1d7053e7a8633703c9eb71f2232f145
     changeNotes: |2
       Thanks, Carlos Gálvez, for pointing out the bug with empty parameters.
       The problem with unreliable values for added parameters has been fixed.
-  # Older versions
   - sha: 32670cfaeb3fa9a58d5caad64102f18b080fc172
     changeNotes: Initial release.
